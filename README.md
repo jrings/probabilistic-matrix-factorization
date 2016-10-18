@@ -61,7 +61,7 @@ y0 = np.outer(r0, np.ones((ncol, 1))) + np.outer(np.ones((nrow, 1)), c0)
 y = y0 + e0
 ```
 
-#### Make a heat plot to indicate how (un) important / reliable each observed entry $y_{ij}$ is. Larger noise indicates lesser importance / reliability.
+#### Make a heat plot to indicate how (un) important / reliable each observed entry ![png](README_files/eqn1.png) is. Larger noise indicates lesser importance / reliability.
 
 
 ```python
