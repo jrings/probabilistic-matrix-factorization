@@ -1,21 +1,35 @@
 
 ## Bayesian Importance Weighted Probabilistic Matrix Factorization
 
-This python module implements a class 'MatrixFactorization' which carries out Bayesian inference for Probabilistic Matrix Factorization (PMF) with importance weights / heteroscedastic measurement errors. The generative model assumes that the matrix entries $y_{ij}$'s have (conditionally) independent distributions given a parameter $\boldsymbol{\theta} = (\mathbf{r}, \mathbf{c}, \mathbf{u}, \mathbf{v})$ as follows:
-$$ y_{ij} \, | \, \boldsymbol{\theta} \sim \mathcal{N}(\mu_{ij}(\boldsymbol{\theta}), w_{ij}^{-1}), \quad \mu_{ij}(\boldsymbol{\theta}) = r_i + c_j + \langle \mathbf{u}_i, \mathbf{v}_j \rangle $$
-where $\mathcal{N}(\mu, \sigma^2)$ denotes the Gaussian distribution with mean $\mu$ and variance $\sigma^2$. The inverse variance $w_{ij} = \text{Var}(y_{ij} | \boldsymbol{\theta})^{-1}$ is sometimes referred to as *importance weight* on the observation $y_{ij}$. The row and column biases $\mathbf{r}, \mathbf{c}$ and latent factors $\mathbf{u}_i, \mathbf{v}_j$ are given independent Gaussian priors:
-$$\mathbf{r} \sim \mathcal{N}(0, \sigma_r^2 \mathbf{I}), \quad
-\mathbf{c} \sim \mathcal{N}(0, \sigma_c^2 \mathbf{I}), \quad
-\mathbf{u}_i \sim \mathcal{N}(0, \sigma_f^2 \mathbf{I}), \quad
-\mathbf{v}_j \sim \mathcal{N}(0, \sigma_f^2 \mathbf{I})$$
-<!--- (Note that no additional flexibility is gained by choosing different prior variances for $\mathbf{u}_i$'s and $\mathbf{v}_j$'s since they are always multiplied together.) -->
+For an easier to read version, see [the notebook](README.ipunb)
+
+This python module implements a class 'MatrixFactorization' which carries out Bayesian inference for Probabilistic Matrix Factorization (PMF) with importance weights / heteroscedastic measurement errors. The generative model assumes that the matrix entries 
+![png](README_files/eqn1.png)
+have (conditionally) independent distributions given a parameter
+![png](README_files/eqn2.png)
+ as follows:
+![png](README_files/eqn3.png)
+
+where 
+![png](README_files/eqn4.png)
+denotes the Gaussian distribution with mean μ and variance σ^2. The inverse variance 
+![png](README_files/eqn5.png)
+is sometimes referred to as *importance weight* on the observation 
+
+![png](README_files/eqn1.png)
+
+The row and column biases 
+![png](README_files/eqn6.png)
+and latent factors 
+![png](README_files/eqn7.png)
+are given independent Gaussian priors:
+
+![png](README_files/eqn8.png)
+
+<!--- (Note that no additional flexibility is gained by choosing different prior variances for u_i's and v_j's since they are always multiplied together.) -->
 Maximixing the posterior probability of this generative model corresponds to minimizing a loss
-$$\ell(\mathbf{y} ; \boldsymbol{\theta})
-    = \sum_{i,j} w_{ij} \Vert y_{ij} - \mu_{ij}(\boldsymbol{\theta}) \Vert^2 
-    + \frac{1}{\sigma_r^2} \Vert \mathbf{r} \Vert
-    + \frac{1}{\sigma_c^2} \Vert \mathbf{c} \Vert 
-    + \frac{1}{\sigma_f^2} \sum_i \Vert \mathbf{u}_i \Vert
-    + \frac{1}{\sigma_f^2} \sum_j \Vert \mathbf{v}_j \Vert$$
+![png](README_files/eqn9.png)
+
 Instead of optimizing the regularized loss function, however, the module implements a Gibbs sampler to reap the benefits of Bayesian approach, such as quantification of posterior uncertainty as well as a relative robustness to the choice of regularization parameters and the number of factors.
 
 
