@@ -1,7 +1,7 @@
 
 ## Bayesian Importance Weighted Probabilistic Matrix Factorization
 
-For an easier to read version, see [the notebook](README.ipunb)
+For a Jupyter notebook version, see [the notebook](README.ipynb)
 
 This python module implements a class 'MatrixFactorization' which carries out Bayesian inference for Probabilistic Matrix Factorization (PMF) with importance weights / heteroscedastic measurement errors. The generative model assumes that the matrix entries 
 ![png](README_files/eqn1.png)
@@ -9,14 +9,11 @@ have (conditionally) independent distributions given a parameter
 ![png](README_files/eqn2.png)
  as follows:
 ![png](README_files/eqn3.png)
-
 where 
 ![png](README_files/eqn4.png)
 denotes the Gaussian distribution with mean μ and variance σ^2. The inverse variance 
 ![png](README_files/eqn5.png)
-is sometimes referred to as *importance weight* on the observation 
-
-![png](README_files/eqn1.png)
+is sometimes referred to as *importance weight* on the observation ![png](README_files/eqn1.png)
 
 The row and column biases 
 ![png](README_files/eqn6.png)
@@ -64,7 +61,7 @@ y0 = np.outer(r0, np.ones((ncol, 1))) + np.outer(np.ones((nrow, 1)), c0)
 y = y0 + e0
 ```
 
-#### Make a heat plot to indicate how (un) imporatnt / reliable each observed entry $y_{ij}$ is. Larger noise indicates lesser importance / reliability.
+#### Make a heat plot to indicate how (un) important / reliable each observed entry $y_{ij}$ is. Larger noise indicates lesser importance / reliability.
 
 
 ```python
